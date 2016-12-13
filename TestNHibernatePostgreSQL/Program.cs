@@ -52,13 +52,14 @@ namespace TestNHibernatePostgreSQL
                 }
             }
 
+            // 测试调用存储过程成功.
             using (var sqlSession = sessionFactory.OpenSession())
             {
-                //var sqlQuery = session.CreateSQLQuery("select public.update_employee(2,'1988-01-17 01:49:59.051963'::TIMESTAMP, 'NO:22'::varchar(10));");
+                //var sqlQuery = session.CreateSQLQuery("select public.update_employee(2,'1970-02-13 01:49:59.051963'::TIMESTAMP, 'NO:22'::varchar(10));");
                 var sqlQuery = sqlSession.CreateSQLQuery("select public.update_employee(:id, :birthday, :sno);");
 
                 var ret = sqlQuery.SetInt64("id", 3)
-                    .SetTimestamp("birthday", DateTime.Parse("1988-01-17 01:49:59.051963"))
+                    .SetTimestamp("birthday", DateTime.Parse("1970-02-13 01:49:59.051963"))
                     .SetString("sno", "序号3")
                     .UniqueResult<int>();
                     //.ExecuteUpdate(); //  -1
